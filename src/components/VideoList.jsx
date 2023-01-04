@@ -1,23 +1,15 @@
 import VideoListEntry from './VideoListEntry.js';
 
-
 // MAP AN ARRAY OF VIDEO OBJECTS
-var VideoList = (props) => {
-  
-  // props = exampleVideoData
-  const videos = props.videos;
-  console.log('all videos: ', videos);
-
-  return (
-    <div className="video-list">
-      {videos.map((video) => {
-        return (
-          <VideoListEntry video={video} />
+var VideoList = ({onClick, videos}) => (
+  <div className="video-list">
+    {videos.map((video) => {
+      return (
+        <VideoListEntry onClick={onClick} video={video} />
         )
       })}
-    </div>
-  );
-}
+  </div>
+);
 
 // PropTypes tell other developers what `props` a component expects
 // Warnings will be shown in the console when the defined rules are violated
@@ -31,8 +23,13 @@ export default VideoList;
 
 /*
 {groceryItems.map(item => {
-            return (
-              <GroceryListItem item={item} />
-            )
-          })}
-*/
+  return (
+    <GroceryListItem item={item} />
+    )
+  })}
+  */
+
+  // props = exampleVideoData
+  // const videos = props.videos;
+  // console.log('all videos: ', videos);
+  // console.log('onClick', props.onClick);
