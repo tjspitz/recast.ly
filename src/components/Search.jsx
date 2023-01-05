@@ -1,20 +1,11 @@
-var Search = ({onSubmit}) => {
-
-  const [search, setSearch] = React.useState('');
+var Search = ({onChange}) => {
 
   const handleChange = function (event) {
-    setSearch(event.target.value);
-  }
-
-  const handleSubmit = function (event) {
-    event.preventDefault();
-    console.log('submitted: ' + search);
-    onSubmit(search);
+    onChange(event.target.value);
   }
 
   return (
-    <form className="search-bar form-inline"
-      onSubmit={handleSubmit}>
+    <div className="search-bar form-inline">
       <input className="form-control"
         type="text"
         onChange={handleChange}
@@ -22,7 +13,7 @@ var Search = ({onSubmit}) => {
       <button className="btn hidden-sm-down">
         <span className="glyphicon glyphicon-search"></span>
       </button>
-    </form>
+    </div>
   );
 }
 

@@ -1,4 +1,5 @@
 import App from '../../src/components/App.js';
+import searchYouTube from '../../src/lib/searchYouTube.js';
 
 describe('App', function() {
   var {
@@ -12,7 +13,7 @@ describe('App', function() {
 
   beforeEach(function() {
     app = renderIntoDocument(
-      <Wrapper><App/></Wrapper>
+      <Wrapper><App search={searchYouTube}/></Wrapper>
     );
   });
 
@@ -43,7 +44,7 @@ describe('App', function() {
   describe('when rendering live data from YouTube', function() {
     beforeEach(function() {
       app = renderIntoDocument(
-        <App />
+        <App search={searchYouTube}/>
       );
     });
 

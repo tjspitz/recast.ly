@@ -2,44 +2,42 @@ import Search from './Search.js';
 import VideoList from './VideoList.js';
 import VideoPlayer from './VideoPlayer.js';
 import exampleVideoData from '../data/exampleVideoData.js';
-import searchYouTube from '../lib/searchYouTube.js';
 
-// import { useState } from 'react';
+var App = ({search}) => {
 
-var App = () => {
-
-  // const [currentVideo, setCurrentVideo] = React.useState(exampleVideoData[0]);
-  // const [videos, setVideos] = React.useState(exampleVideoData);
-  const [currentVideo, setCurrentVideo] = React.useState(exampleVideoData[0]);
+  const [currentVideo, setCurrentVideo] = React.useState(null);
   const [videos, setVideos] = React.useState([]);
 
   const {useEffect} = React;
-  // useEffect()
+  var timer;
 
-  // useEffect(() => {
-  //   setVideos(searchYouTube({...}))
-  // }, [videos]);
+  useEffect(() => {
+    search('spaghetti', (data) => {
+      setCurrentVideo(data[0]);
+      setVideos(data);
+    });
+  }, []);
 
   const onVideoClick = (video) => {
     console.log('clicked: ', video);
     setCurrentVideo(video);
   }
 
-  const onSearchSubmit = (query) => {
-    // console.log(query);
-    searchYouTube(query, (data) => {
-      setVideos(data)
-      console.log(videos);
-    });
-    
+  const onSearchChange = (query) => {
+    clearTimeout(timer);
+    timer = setTimeout( () => {
+      search(query, (data) => {
+        setCurrentVideo(data[0]);
+        setVideos(data)
+      });
+    }, 500);
   }
 
-  // breaks tests currentVideo -> exampleVideoData[0]
   return (
     <div>
       <nav className="navbar">
         <div className="col-md-6 offset-md-3">
-          < Search onSubmit={onSearchSubmit} />
+          < Search onChange={onSearchChange} />
         </div>
       </nav>
       <div className="row">
@@ -58,7 +56,3 @@ export default App;
 
 // In the ES6 spec, files are "modules" and do not share a top-level scope
 // `var` declarations will only exist globally where explicitly defined
-
-/*
-
-*/
